@@ -1,0 +1,332 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    About | Nazril Portfolio
+{% endblock %}
+
+{% block content %}
+
+<!-- HEADER -->
+<section class="pt-40 pb-24 relative overflow-hidden">
+
+    <!-- Blur -->
+    <div class="absolute top-0 left-0 w-72 h-72 bg-fuchsia-500 rounded-full blur-[120px] opacity-20"></div>
+
+    <div class="absolute bottom-0 right-0 w-72 h-72 bg-cyan-500 rounded-full blur-[120px] opacity-20"></div>
+
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+
+        <div class="grid lg:grid-cols-2 gap-20 items-center">
+
+
+            <!-- LEFT -->
+            <div>
+
+                <p class="text-fuchsia-400 uppercase tracking-[5px] mb-5">
+                    About Me
+                </p>
+
+                <h1 class="text-5xl lg:text-7xl font-black leading-tight mb-8">
+
+                    Creative
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-cyan-400">
+                        Developer
+                    </span>
+
+                </h1>
+
+                <p class="text-gray-400 text-lg leading-loose mb-8">
+
+                    Saya adalah mahasiswa Teknik Informatika
+                    yang memiliki ketertarikan besar
+                    pada dunia teknologi,
+                    desain visual,
+                    content creation,
+                    dan pengembangan media digital.
+
+                </p>
+
+                <p class="text-gray-400 text-lg leading-loose mb-10">
+
+                    Memiliki pengalaman dalam pengelolaan data,
+                    komunikasi pengguna,
+                    organisasi,
+                    desain grafis,
+                    editing,
+                    serta pengembangan website modern
+                    berbasis user experience.
+
+                </p>
+
+
+                <!-- INFO -->
+                <div class="grid md:grid-cols-2 gap-6">
+
+                    <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+
+                        <p class="text-gray-500 mb-2">
+                            Name
+                        </p>
+
+                        <h3 class="text-xl font-bold">
+                            Nazril Abdillah
+                        </h3>
+
+                    </div>
+
+
+                    <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+
+                        <p class="text-gray-500 mb-2">
+                            Location
+                        </p>
+
+                        <h3 class="text-xl font-bold">
+                            Lampung Selatan
+                        </h3>
+
+                    </div>
+
+
+                    <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+
+                        <p class="text-gray-500 mb-2">
+                            Email
+                        </p>
+
+                        <h3 class="text-lg font-bold break-all">
+                            nazrilabdillah106@gmail.com
+                        </h3>
+
+                    </div>
+
+
+                    <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+
+                        <p class="text-gray-500 mb-2">
+                            Focus
+                        </p>
+
+                        <h3 class="text-xl font-bold">
+                            Content Creator
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RIGHT -->
+            <div class="relative flex justify-center">
+
+                <!-- Circle -->
+                <div class="absolute w-[500px] h-[500px] rounded-full border border-fuchsia-500/20 animate-spin"
+                     style="animation-duration: 20s;">
+                </div>
+
+                <div class="absolute w-[380px] h-[380px] rounded-full border border-cyan-500/20 animate-spin"
+                     style="animation-duration: 15s; animation-direction: reverse;">
+                </div>
+
+
+                <!-- Image -->
+                <div class="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-[40px] p-5 shadow-2xl">
+
+                    <img src="{{ profile.image.url }}"
+                         class="w-[350px] h-[450px] object-cover rounded-[30px]">
+
+
+                    <!-- Floating -->
+                    <div class="absolute -bottom-10 -left-10 bg-black/60 backdrop-blur-xl border border-white/10 p-5 rounded-3xl">
+
+                        <p class="text-gray-400 text-sm mb-2">
+                            Current Goal
+                        </p>
+
+                        <h1 class="font-bold text-xl">
+                            Creative Content & Branding
+                        </h1>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- EXPERIENCE -->
+<section class="pb-32">
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+        <div class="mb-16">
+
+            <p class="text-cyan-400 uppercase tracking-[5px] mb-5">
+                Experience
+            </p>
+
+            <h2 class="text-5xl font-black">
+
+                Work &
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-400">
+                    Organization
+                </span>
+
+            </h2>
+
+        </div>
+
+
+
+        <div class="space-y-8">
+
+
+            <!-- CARD -->
+            <div class="rounded-[35px] border border-white/10 bg-white/5 backdrop-blur-xl p-10 hover:-translate-y-2 duration-300">
+
+                <div class="flex flex-col lg:flex-row lg:justify-between gap-10">
+
+                    <div>
+
+                        <p class="text-fuchsia-400 mb-3">
+                            June 2023 - July 2023
+                        </p>
+
+                        <h1 class="text-3xl font-bold mb-5">
+                            Graphic Design Internship
+                        </h1>
+
+                        <p class="text-gray-400 leading-loose max-w-3xl">
+
+                            Berpengalaman membuat desain grafis,
+                            ilustrasi visual,
+                            branding,
+                            dan komunikasi desain
+                            selama magang di Gamelab — PT Educa Studio.
+
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="px-5 py-3 rounded-2xl bg-fuchsia-500/10 border border-fuchsia-500/20 text-fuchsia-300">
+
+                            Gamelab — PT Educa Studio
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+            <!-- CARD -->
+            <div class="rounded-[35px] border border-white/10 bg-white/5 backdrop-blur-xl p-10 hover:-translate-y-2 duration-300">
+
+                <div class="flex flex-col lg:flex-row lg:justify-between gap-10">
+
+                    <div>
+
+                        <p class="text-cyan-400 mb-3">
+                            January 2026 - March 2026
+                        </p>
+
+                        <h1 class="text-3xl font-bold mb-5">
+                            PMB Admin Internship
+                        </h1>
+
+                        <p class="text-gray-400 leading-loose max-w-3xl">
+
+                            Mengelola lebih dari 6000+ data calon mahasiswa,
+                            menangani komunikasi pengguna,
+                            membantu penyelesaian masalah sistem registrasi,
+                            dan mengoperasikan sistem SIAKAD PMB.
+
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="px-5 py-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">
+
+                            Universitas Indonesia Mandiri
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+            <!-- CARD -->
+            <div class="rounded-[35px] border border-white/10 bg-white/5 backdrop-blur-xl p-10 hover:-translate-y-2 duration-300">
+
+                <div class="flex flex-col lg:flex-row lg:justify-between gap-10">
+
+                    <div>
+
+                        <p class="text-purple-400 mb-3">
+                            2026 - Present
+                        </p>
+
+                        <h1 class="text-3xl font-bold mb-5">
+                            Chairman of HIMA Informatics
+                        </h1>
+
+                        <p class="text-gray-400 leading-loose max-w-3xl">
+
+                            Memimpin organisasi mahasiswa informatika,
+                            mengelola program kerja,
+                            membangun teamwork,
+                            serta mengembangkan kemampuan leadership
+                            dan public speaking.
+
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="px-5 py-3 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-300">
+
+                            Informatics Student Association
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

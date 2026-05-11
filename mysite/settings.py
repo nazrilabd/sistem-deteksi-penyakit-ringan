@@ -38,11 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'post.apps.PostConfig',
-    'sprogram.apps.SprogramConfig',
-    'headerpost.apps.HeaderpostConfig',
-    'announcement.apps.AnnouncementConfig',
-    'forum.apps.ForumConfig',
+    'portofolio.apps.PortofolioConfig',
     'cloudinary_storage',
     'django_filters',
     'rest_framework',
@@ -87,7 +83,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:wArefbicZsiWTVOFLqgIpbAHjhuqvVbE@switchyard.proxy.rlwy.net:34897/railway',
+        default='postgresql://neondb_owner:npg_rFb9wKWlJh7x@ep-sweet-recipe-aqqxad7m-pooler.c-8.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require',
         conn_max_age=600
     )
 }
