@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Diagnosis Penyakit
+{% endblock %}
+
+{% block content %}
+
+<div class="bg-white rounded-2xl shadow-lg p-8">
+
+    <h2 class="text-3xl font-bold text-center mb-2">
+        Diagnosis Penyakit
+    </h2>
+
+    <p class="text-center text-gray-500 mb-8">
+        Pilih gejala yang Anda alami
+    </p>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+
+            {% for key, value in gejala.items %}
+
+            <label
+                class="flex items-center gap-2 p-3 rounded-lg border hover:bg-blue-50 cursor-pointer">
+
+                <input
+                    type="checkbox"
+                    name="gejala"
+                    value="{{ key }}"
+                    class="w-4 h-4 text-blue-600">
+
+                <span>
+                    {{ value }}
+                </span>
+
+            </label>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="mt-8 text-center">
+
+            <button
+                type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold">
+
+                Diagnosa Penyakit
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% if hasil %}
+
+<div class="bg-white rounded-2xl shadow-lg p-8 mt-8">
+
+    <h2 class="text-2xl font-bold text-green-600 mb-4">
+
+        Hasil Diagnosis
+
+    </h2>
+
+    <div
+        class="bg-green-100 border border-green-300 rounded-lg p-4">
+
+        <p class="text-lg">
+
+            Kemungkinan Penyakit:
+
+            <strong>
+
+                {{ hasil }}
+
+            </strong>
+
+        </p>
+
+    </div>
+
+    <div class="mt-6">
+
+        <h3 class="text-xl font-semibold mb-3">
+
+            Top 3 Prediksi
+
+        </h3>
+
+        <ul class="space-y-2">
+
+            {% for nama, nilai in top3 %}
+
+            <li
+                class="flex justify-between bg-slate-100 p-3 rounded-lg">
+
+                <span>
+                    {{ nama }}
+                </span>
+
+                <span class="font-bold">
+                    {{ nilai }}%
+                </span>
+
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+    <div class="mt-8">
+
+        <canvas id="chart"></canvas>
+
+    </div>
+
+</div>
+
+<script>
+
+const ctx =
+document.getElementById("chart");
+
+new Chart(ctx, {
+
+    type: "bar",
+
+    data: {
+
+        labels:
+        {{ chart_labels|safe }},
+
+        datasets: [{
+
+            label: "Probabilitas (%)",
+
+            data:
+            {{ chart_values|safe }}
+
+        }]
+    },
+
+    options: {
+
+        responsive: true,
+
+        scales: {
+
+            y: {
+
+                beginAtZero: true,
+
+                max: 100
+
+            }
+        }
+    }
+});
+
+</script>
+
+{% endif %}
+
+{% endblock %}

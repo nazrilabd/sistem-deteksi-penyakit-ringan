@@ -1,0 +1,305 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Pemeriksaan Gejala Mandiri
+{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-10">
+
+    {% if not hasil %}
+    <div class="bg-white border border-slate-200 rounded-lg shadow-sm p-6 sm:p-8">
+        
+        <div class="border-b border-slate-100 pb-5 mb-6 text-center sm:text-left">
+            <h1 class="text-xl font-bold text-slate-950 tracking-tight">
+                Formulir Skrining Gejala Mandiri
+            </h1>
+            <p class="text-xs text-slate-500 mt-1">
+                Lengkapi data administrasi dan pilih indikasi klinis yang Anda rasakan untuk memulai analisis statistik.
+            </p>
+        </div>
+
+        <form method="post" class="space-y-8">
+            {% csrf_token %}
+            
+            <div class="space-y-4">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 pb-1.5">
+                    01. Identitas Pasien
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1.5">Nama Lengkap</label>
+                        <input type="text" name="nama" required 
+                               class="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1.5">NIK (Nomor Induk Kependudukan)</label>
+                        <input type="text" name="nik" required maxlength="16" 
+                               class="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1.5">Jenis Kelamin</label>
+                        <select name="gender" required 
+                                class="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors">
+                            <option value="">Pilih Jenis Kelamin</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1.5">Usia (Tahun)</label>
+                        <input type="number" name="usia" required min="1" max="120" 
+                               class="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1.5">Nomor HP Aktif</label>
+                        <input type="text" name="no_hp" required 
+                               class="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1.5">Alamat Domisili</label>
+                        <input type="text" name="alamat" required 
+                               class="w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors">
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="border-b border-slate-100 pb-3 space-y-3">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">
+                            02. Daftar Indikasi Keluhan Fisik
+                        </h2>
+                        
+                        <div class="flex items-center gap-3 w-full sm:w-auto">
+                            <input type="text" id="searchInput" placeholder="Ketik kata kunci gejala (misal: demam, gatal)..." 
+                                   class="w-full sm:w-72 bg-slate-100/80 border border-slate-200 rounded px-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-slate-300 transition-colors">
+                            
+                            <span id="selectedCounter" class="shrink-0 text-[11px] font-bold bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full select-none">
+                                0 Terpilih
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-1.5">
+                        <button type="button" data-category="all" class="cat-btn bg-slate-900 text-white border border-slate-900 px-3 py-1 rounded text-[11px] font-semibold tracking-wide transition-colors">Semua</button>
+                        <button type="button" data-category="kulit" class="cat-btn bg-white text-slate-600 border border-slate-200 hover:border-slate-300 px-3 py-1 rounded text-[11px] font-semibold tracking-wide transition-colors">Kulit & Kuku</button>
+                        <button type="button" data-category="pencernaan" class="cat-btn bg-white text-slate-600 border border-slate-200 hover:border-slate-300 px-3 py-1 rounded text-[11px] font-semibold tracking-wide transition-colors">Pencernaan</button>
+                        <button type="button" data-category="pernapasan" class="cat-btn bg-white text-slate-600 border border-slate-200 hover:border-slate-300 px-3 py-1 rounded text-[11px] font-semibold tracking-wide transition-colors">Pernapasan</button>
+                        <button type="button" data-category="saraf_sendi" class="cat-btn bg-white text-slate-600 border border-slate-200 hover:border-slate-300 px-3 py-1 rounded text-[11px] font-semibold tracking-wide transition-colors">Saraf, Kepala & Sendi</button>
+                        <button type="button" data-category="umum" class="cat-btn bg-white text-slate-600 border border-slate-200 hover:border-slate-300 px-3 py-1 rounded text-[11px] font-semibold tracking-wide transition-colors">Umum / Sistemik</button>
+                    </div>
+                </div>
+
+                <div id="selectedPreview" class="hidden bg-teal-50/40 border border-teal-100 rounded-md p-3 space-y-1.5">
+                    </div>
+
+                <div id="symptomContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 max-h-[380px] overflow-y-auto pr-1">
+                    {% for key, value in gejala.items %}
+                    <label class="symptom-item flex items-start gap-3 border border-slate-200/80 rounded p-3 bg-white hover:border-slate-300 hover:bg-slate-50/50 cursor-pointer transition-all group">
+                        <input type="checkbox" name="gejala" value="{{ key }}" 
+                               class="symptom-checkbox w-4 h-4 text-teal-600 border-slate-300 rounded focus:ring-0 focus:ring-offset-0 mt-0.5 accent-teal-600">
+                        <span class="symptom-text text-xs font-medium text-slate-700 group-hover:text-slate-950 transition-colors select-none leading-tight">
+                            {{ value }}
+                        </span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="pt-4 text-center sm:text-left border-t border-slate-100">
+                <button type="submit" 
+                        class="w-full sm:w-auto bg-slate-900 hover:bg-teal-700 text-white px-6 py-3 rounded text-xs font-bold uppercase tracking-wider transition-colors shadow-sm">
+                    Proses Klasifikasi Data
+                </button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+
+    {% if hasil %}
+    <div class="bg-white border border-slate-200 rounded-lg shadow-sm p-6 sm:p-8 space-y-8">
+        
+        <div class="border-b border-slate-100 pb-4">
+            <h2 class="text-base font-bold text-slate-900 uppercase tracking-wide">
+                Kesimpulan Hasil Analisis Sistem
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 border border-slate-200 rounded divide-y md:divide-y-0 md:divide-x divide-slate-200 overflow-hidden shadow-sm/50">
+            <div class="p-5 bg-slate-50/50 md:col-span-1 flex flex-col justify-center">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Metode Evaluasi</span>
+                <span class="text-xs font-bold text-slate-800 mt-1">Probabilitas Tertinggi</span>
+            </div>
+            <div class="p-5 md:col-span-2 bg-white">
+                <span class="text-[10px] font-bold text-teal-600 uppercase tracking-widest block mb-1">Indikasi Primer Penyakit</span>
+                <p class="text-2xl font-bold text-slate-900 tracking-tight">
+                    {{ hasil }}
+                </p>
+            </div>
+        </div>
+
+        <div class="space-y-3">
+            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                Top 3 Nilai Probabilitas Kasus
+            </h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {% for nama, nilai in top3 %}
+                <div class="border border-slate-200 rounded p-3.5 bg-white shadow-sm/30 flex justify-between items-center sm:flex-col sm:items-start sm:gap-2">
+                    <span class="text-xs font-semibold text-slate-700 truncate max-w-[180px] sm:max-w-full">
+                        {{ nama }}
+                    </span>
+                    <span class="text-sm font-bold text-teal-600 font-mono">
+                        {{ nilai }}%
+                    </span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center gap-3">
+            <a href="{% url 'download_pdf' %}?nama={{ nama }}&nik={{ nik }}&gender={{ gender }}&usia={{ usia }}&no_hp={{ no_hp }}&alamat={{ alamat }}&hasil={{ hasil }}&top1={{ top3.0.0 }} ({{ top3.0.1 }}%)&top2={{ top3.1.0 }} ({{ top3.1.1 }}%)&top3={{ top3.2.0 }} ({{ top3.2.1 }}%)"
+               class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded transition-colors text-center shadow-sm">
+                Unduh Rekam Ringkasan (PDF)
+            </a>
+            
+            <a href="{% url 'diagnosis' %}"
+               class="w-full sm:w-auto border border-slate-300 hover:border-slate-400 text-slate-600 hover:text-slate-900 px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded transition-colors text-center">
+                Pemeriksaan Baru
+            </a>
+        </div>
+
+    </div>
+    {% endif %}
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.getElementById("searchInput");
+    const symptomItems = document.querySelectorAll(".symptom-item");
+    const catButtons = document.querySelectorAll(".cat-btn");
+    const selectedCounter = document.getElementById("selectedCounter");
+    const selectedPreview = document.getElementById("selectedPreview");
+
+    // Skip inisialisasi jika form sedang di-hide (setelah submit)
+    if (!searchInput && symptomItems.length === 0) return;
+
+    let activeCategory = "all";
+    let activeSearchQuery = "";
+
+    // 1. Pemetaan Gejala Otomatis ke Kategori Medis
+    symptomItems.forEach(item => {
+        const text = item.querySelector('.symptom-text').innerText.toLowerCase();
+        let assignedCat = "umum";
+
+        if (/gatal|kulit|ruam|benjolan|bercak|jerawat|komedo|bopeng|mengelupas|sisik|lepuhan|luka|nanah|kuku/i.test(text)) {
+            assignedCat = "kulit";
+        } else if (/perut|lambung|sariawan|muntah|mual|pencernaan|begah|sembelit|diare|feses|anus|kembung/i.test(text)) {
+            assignedCat = "pencernaan";
+        } else if (/bersin|batuk|napas|engap|tenggorokan|hidung|meler|tersumbat|dada|dahak/i.test(text)) {
+            assignedCat = "pernapasan";
+        } else if (/sendi|otot|kepala|nyeri|kaku|pusing|kliyengan|berputar|seimbang|sempoyongan|kesemutan|bicara/i.test(text)) {
+            assignedCat = "saraf_sendi";
+        }
+
+        item.setAttribute("data-med-cat", assignedCat);
+    });
+
+    // 2. Fungsi Filter Gabungan
+    function applyCombinedFilter() {
+        symptomItems.forEach(item => {
+            const text = item.querySelector('.symptom-text').innerText.toLowerCase();
+            const itemCat = item.getAttribute("data-med-cat");
+
+            const matchesSearch = text.includes(activeSearchQuery);
+            const matchesCategory = (activeCategory === "all" || itemCat === activeCategory);
+
+            if (matchesSearch && matchesCategory) {
+                item.style.display = "flex";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    }
+
+    // 3. Event Listener Input Pencarian
+    if (searchInput) {
+        searchInput.addEventListener("input", function() {
+            activeSearchQuery = this.value.toLowerCase();
+            applyCombinedFilter();
+        });
+    }
+
+    // 4. Event Listener Klik Filter Kategori
+    catButtons.forEach(btn => {
+        btn.addEventListener("click", function() {
+            catButtons.forEach(b => {
+                b.classList.remove("bg-slate-900", "text-white", "border-slate-900");
+                b.classList.add("bg-white", "text-slate-600", "border-slate-200");
+            });
+
+            this.classList.remove("bg-white", "text-slate-600", "border-slate-200");
+            this.classList.add("bg-slate-900", "text-white", "border-slate-900");
+
+            activeCategory = this.getAttribute("data-category");
+            applyCombinedFilter();
+        });
+    });
+
+    // 5. Logika Pembaruan Visual & Preview Gejala Terpilih
+    function syncSelectedStates() {
+        const checkedCheckboxes = document.querySelectorAll(".symptom-checkbox:checked");
+        const count = checkedCheckboxes.length;
+
+        selectedCounter.innerText = `${count} Terpilih`;
+        if (count > 0) {
+            selectedCounter.classList.remove("bg-slate-100", "text-slate-600");
+            selectedCounter.classList.add("bg-teal-600", "text-white");
+        } else {
+            selectedCounter.classList.remove("bg-teal-600", "text-white");
+            selectedCounter.classList.add("bg-slate-100", "text-slate-600");
+        }
+
+        if (count > 0) {
+            let previewHTML = `<div class="text-[10px] font-bold text-teal-800 uppercase tracking-wider">Gejala Terpilih Saat Ini:</div>`;
+            previewHTML += `<div class="flex flex-wrap gap-1.5 mt-1">`;
+            
+            checkedCheckboxes.forEach(cb => {
+                const parentLabel = cb.closest(".symptom-item");
+                const textVal = parentLabel.querySelector(".symptom-text").innerText;
+                
+                parentLabel.classList.add("border-teal-600", "bg-teal-50/40");
+                parentLabel.classList.remove("border-slate-200/80", "bg-white");
+
+                previewHTML += `<span class="inline-flex items-center bg-white border border-teal-300 text-teal-950 text-[10px] font-medium px-2 py-0.5 rounded shadow-sm/10">${textVal}</span>`;
+            });
+
+            previewHTML += `</div>`;
+            selectedPreview.innerHTML = previewHTML;
+            selectedPreview.classList.remove("hidden");
+        } else {
+            selectedPreview.innerHTML = "";
+            selectedPreview.classList.add("hidden");
+        }
+
+        document.querySelectorAll(".symptom-checkbox:not(:checked)").forEach(cb => {
+            const parentLabel = cb.closest(".symptom-item");
+            parentLabel.classList.remove("border-teal-600", "bg-teal-50/40");
+            parentLabel.classList.add("border-slate-200/80", "bg-white");
+        });
+    }
+
+    document.querySelectorAll(".symptom-checkbox").forEach(cb => {
+        cb.addEventListener("change", syncSelectedStates);
+    });
+});
+</script>
+{% endblock %}

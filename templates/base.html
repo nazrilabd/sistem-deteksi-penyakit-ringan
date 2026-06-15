@@ -1,159 +1,121 @@
-{% load static %}
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        {% block title %}
-            Nazril Portfolio | Creative Tech
-        {% endblock %}
-    </title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>{% block title %}Sistem Informasi Gejala Medis{% endblock %}</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        *{
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: #FFFFFF; /* Diubah ke Putih */
-            color: #111827; /* Text menjadi Gelap (Gray-900) */
-            overflow-x: hidden;
-        }
-
-        /* Glassmorphism khusus tema Terang */
-        .glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .gradient-text {
-            background: linear-gradient(to right, #f59e0b, #d97706); /* Amber/Kuning */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Glow lembut untuk tema terang */
-        .glow {
-            box-shadow: 0 0 50px rgba(245, 158, 11, 0.15);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #fbbf24;
-            border-radius: 10px;
-        }
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
+<body class="bg-slate-50/50 text-slate-900 flex flex-col min-h-screen antialiased">
 
-<body class="selection:bg-amber-200 selection:text-amber-900">
-
-    <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-[100] backdrop-blur-md bg-white/80 border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
+    <nav class="bg-white border-b border-slate-200/80 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
                 
-                <!-- Logo -->
-                <a href="/" class="text-2xl font-black tracking-tighter text-gray-900">
-                    Nazril<span class="text-amber-500">.dev</span>
-                </a>
+                <div class="flex items-center">
+                    <a href="{% url 'home' %}" class="flex items-center space-x-3 group">
+                        <div class="w-8 h-8 rounded bg-slate-900 flex items-center justify-center text-white font-bold text-sm tracking-tight">
+                            M
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-slate-900 tracking-tight leading-none uppercase">Medika Portal</span>
+                            <span class="text-[10px] font-medium text-slate-400 tracking-wider mt-0.5">Sistem Klasifikasi Gejala</span>
+                        </div>
+                    </a>
+                </div>
 
-                <!-- Desktop Menu -->
-                <ul class="hidden md:flex items-center gap-10 text-sm font-bold tracking-wide text-gray-500">
-                    <li><a href="/" class="hover:text-amber-500 transition-colors uppercase">Home</a></li>
-                    <li><a href="/projects/" class="hover:text-amber-500 transition-colors uppercase">Projects</a></li>
-                    <li><a href="/certificates/" class="hover:text-amber-500 transition-colors uppercase">Certificates</a></li>
-                    <li><a href="/skills/" class="hover:text-amber-500 transition-colors uppercase">Skills</a></li>
-                    <li><a href="/about/" class="hover:text-amber-500 transition-colors uppercase">About</a></li>
-                </ul>
+                <div class="hidden sm:flex sm:items-center sm:space-x-8">
+                    <a href="{% url 'home' %}" 
+                       class="border-b-2 px-1 pt-1 text-sm transition-colors {% if request.resolver_match.url_name == 'home' %}border-slate-900 font-semibold text-slate-900{% else %}border-transparent font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700{% endif %}">
+                        Beranda
+                    </a>
+                    
+                    <a href="{% url 'diagnosis' %}" 
+                       class="border-b-2 px-1 pt-1 text-sm transition-colors {% if request.resolver_match.url_name == 'diagnosis' %}border-slate-900 font-semibold text-slate-900{% else %}border-transparent font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700{% endif %}">
+                        Konsultasi Gejala
+                    </a>
+                    
+                    <a href="{% url 'about' %}" 
+                       class="border-b-2 px-1 pt-1 text-sm transition-colors {% if request.resolver_match.url_name == 'about' %}border-slate-900 font-semibold text-slate-900{% else %}border-transparent font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700{% endif %}">
+                        Metodologi
+                    </a>
+                </div>
 
-                <!-- Mobile Button -->
-                <button id="menu-btn" class="md:hidden text-gray-900 focus:outline-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
+                <div class="flex items-center sm:hidden">
+                    <button onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-slate-500 hover:bg-slate-100 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+
             </div>
         </div>
 
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-xl">
-            <div class="flex flex-col px-6 py-8 gap-6 text-base font-bold text-gray-600">
-                <a href="/" class="hover:text-amber-500 transition-colors">Home</a>
-                <a href="/projects/" class="hover:text-amber-500 transition-colors">Projects</a>
-                <a href="/certificates/" class="hover:text-amber-500 transition-colors">Certificates</a>
-                <a href="/skills/" class="hover:text-amber-500 transition-colors">Skills</a>
-                <a href="/about/" class="hover:text-amber-500 transition-colors">About</a>
-            </div>
+        <div id="mobile-menu" class="hidden sm:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-1">
+            <a href="{% url 'home' %}" 
+               class="block px-3 py-2 rounded-md text-base font-medium {% if request.resolver_match.url_name == 'home' %}text-slate-900 bg-slate-50 font-semibold{% else %}text-slate-600 hover:bg-slate-50 hover:text-slate-900{% endif %}">
+                Beranda
+            </a>
+            <a href="{% url 'diagnosis' %}" 
+               class="block px-3 py-2 rounded-md text-base font-medium {% if request.resolver_match.url_name == 'diagnosis' %}text-slate-900 bg-slate-50 font-semibold{% else %}text-slate-600 hover:bg-slate-50 hover:text-slate-900{% endif %}">
+                Konsultasi Gejala
+            </a>
+            <a href="{% url 'about' %}" 
+               class="block px-3 py-2 rounded-md text-base font-medium {% if request.resolver_match.url_name == 'about' %}text-slate-900 bg-slate-50 font-semibold{% else %}text-slate-600 hover:bg-slate-50 hover:text-slate-900{% endif %}">
+                Metodologi
+            </a>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="min-h-screen pt-20">
-        {% block content %}
-        {% endblock %}
+    <main class="flex-grow">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+            {% block content %}
+            {% endblock %}
+        </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-[#FAFAFA] border-t border-gray-100 py-16 mt-20">
-        <div class="max-w-7xl mx-auto px-8">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div>
-                    <h1 class="text-3xl font-black text-gray-900 mb-6">
-                        Nazril <span class="text-amber-500">Abdillah</span>
-                    </h1>
-                    <p class="text-gray-500 leading-loose max-w-md">
-                        Mahasiswa Teknik Informatika yang berfokus pada estetika digital dan fungsionalitas teknologi modern. Berkomitmen untuk menciptakan solusi visual yang berdampak.
+    <footer class="bg-white border-t border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-8 border-b border-slate-100">
+                
+                <div class="md:col-span-8 space-y-2.5">
+                    <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Batasan Tanggung Jawab Medis (Disclaimer)</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed text-justify">
+                        Sistem informasi ini dikembangkan sebagai alat bantu skrining awal berbasis statistik probabilitas. Hasil penapisan tidak menggantikan berkas diagnosis klinis, resep obat, atau pemeriksaan fisik langsung oleh tenaga medis profesional. Evaluasi kondisi kesehatan Anda secara berkala ke fasilitas layanan kesehatan resmi.
                     </p>
                 </div>
 
-                <div class="md:text-right space-y-2">
-                    <h2 class="text-sm font-black text-amber-500 uppercase tracking-[3px] mb-4">Contact Detail</h2>
-                    <p class="text-gray-900 font-medium">nazrilabdillah106@gmail.com</p>
-                    <p class="text-gray-900 font-medium">0896 6025 2010</p>
-                    <p class="text-gray-500 text-sm italic">Lampung Selatan, Indonesia</p>
+                <div class="md:col-span-4 space-y-2.5 md:text-right">
+                    <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Penyelenggara</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Laboratorium Sistem Pakar & Rekayasa Perangkat Lunak<br>
+                        Fakultas Ilmu Komputer &bull; Universitas Indonesia Mandiri
+                    </p>
                 </div>
-            </div>
 
-            <div class="border-t border-gray-200/50 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-gray-400 text-xs font-medium uppercase tracking-widest">
-                    © 2026 NAZRIL ABDILLAH — ARCHIVE
-                </p>
-                <div class="flex gap-6">
-                    <a href="#" class="text-gray-400 hover:text-amber-500 transition-colors text-xs font-bold uppercase">Instagram</a>
-                    <a href="#" class="text-gray-400 hover:text-amber-500 transition-colors text-xs font-bold uppercase">LinkedIn</a>
-                    <a href="#" class="text-gray-400 hover:text-amber-500 transition-colors text-xs font-bold uppercase">GitHub</a>
-                </div>
+            </div>
+            
+            <div class="pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-400 gap-2">
+                <p>&copy; 2026 Medika Portal. Seluruh hak cipta dilindungi undang-undang.</p>
+                <p class="font-mono text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Build: v2.4.0-Stable</p>
             </div>
         </div>
     </footer>
 
-    <!-- Script Menu -->
     <script>
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Close menu on scroll
-        window.onscroll = () => {
-            mobileMenu.classList.add('hidden');
-        };
+        function toggleMobileMenu() {
+            var menu = document.getElementById("mobile-menu");
+            menu.classList.toggle("hidden");
+        }
     </script>
 </body>
 </html>

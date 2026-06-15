@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Metodologi & Pengembang
+{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-8">
+
+    <div class="bg-white border border-slate-200 rounded-lg shadow-sm p-6 sm:p-8">
+        <div class="border-b border-slate-100 pb-4 mb-5">
+            <h1 class="text-xl font-bold text-slate-950 tracking-tight">
+                Tentang Sistem Informasi Medika Portal
+            </h1>
+        </div>
+        
+        <div class="space-y-4 text-sm text-slate-600 leading-relaxed">
+            <p>
+                Medika Portal merupakan platform berbasis web yang dikembangkan untuk memetakan kecenderungan indikasi awal masalah kesehatan pasien berdasarkan pengelompokan gejala yang dipilih secara mandiri.
+            </p>
+            <p>
+                Sistem ini menerapkan pendekatan komputasi menggunakan metode klasifikasi statistik <strong class="text-slate-900 font-semibold">Bernoulli Naive Bayes</strong>. Algoritma ini memproses data gejala sebagai variabel biner (ada atau tidaknya gejala) untuk menghitung bobot probabilitas bersyarat terhadap database kasus penyakit yang tersedia.
+            </p>
+            <p>
+                Hasil pengujian menyajikan estimasi akurat berupa urutan peringkat kasus yang paling relevan beserta kalkulasi persentase kecocokan, serta menyediakan opsi cetak dokumen rekam ringkasan formal.
+            </p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm/50">
+            <div class="text-[10px] font-bold text-teal-600 uppercase tracking-widest mb-1.5">Metodologi</div>
+            <h3 class="font-bold text-sm text-slate-900 mb-1">
+                Klasifikasi Statistik
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Memanfaatkan teorema probabilitas Naive Bayes untuk penapisan kelompok keluhan fisik secara terukur.
+            </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm/50">
+            <div class="text-[10px] font-bold text-teal-600 uppercase tracking-widest mb-1.5">Output</div>
+            <h3 class="font-bold text-sm text-slate-900 mb-1">
+                Analisis Distribusi
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Menyajikan komparasi 3 besar (Top 3) estimasi indikasi medis berdasarkan nilai persentase tertinggi.
+            </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm/50">
+            <div class="text-[10px] font-bold text-teal-600 uppercase tracking-widest mb-1.5">Dokumentasi</div>
+            <h3 class="font-bold text-sm text-slate-900 mb-1">
+                Rekam Ringkasan
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Hasil evaluasi gejala dapat langsung diunduh ke dalam berkas PDF sebagai dokumen acuan konsultasi lanjutan.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-lg p-6 sm:p-8">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 pb-2 mb-4">
+            Spesifikasi Komputasi & Arsitektur
+        </h2>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-slate-50 border border-slate-200 rounded p-3 text-center text-xs font-semibold text-slate-700">
+                Django Framework
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded p-3 text-center text-xs font-semibold text-slate-700">
+                Tailwind CSS
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded p-3 text-center text-xs font-semibold text-slate-700">
+                Bernoulli Naive Bayes
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded p-3 text-center text-xs font-semibold text-slate-700">
+                PDF Engine Generator
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-lg p-6 sm:p-8">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 pb-2 mb-5">
+            Personel Pengembang
+        </h2>
+        
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
+            <div class="w-16 h-16 rounded bg-slate-900 flex items-center justify-center text-white text-xl font-bold tracking-tight shrink-0 select-none">
+                NA
+            </div>
+            
+            <div class="space-y-1">
+                <h3 class="text-base font-bold text-slate-900 leading-none">
+                    Nazril Abdillah
+                </h3>
+                <p class="text-xs font-medium text-slate-500">
+                    Laboratorium Sistem Pakar & Rekayasa Perangkat Lunak
+                </p>
+                <p class="text-xs text-slate-400">
+                    Program Studi Teknik Informatika &bull; Universitas Indonesia Mandiri
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

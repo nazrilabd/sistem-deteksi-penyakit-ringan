@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'portofolio.apps.PortofolioConfig',
+    'diagnosis.apps.DiagnosisConfig',
     'cloudinary_storage',
     'django_filters',
     'rest_framework',
