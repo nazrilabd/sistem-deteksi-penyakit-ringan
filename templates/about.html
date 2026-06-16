@@ -10,99 +10,147 @@ Metodologi & Pengembang
     <div class="bg-white border border-slate-200 rounded-lg shadow-sm p-6 sm:p-8">
         <div class="border-b border-slate-100 pb-4 mb-5">
             <h1 class="text-xl font-bold text-slate-950 tracking-tight">
-                Tentang Sistem Informasi Medika Portal
+                Tentang Sistem Triase Mandiri
             </h1>
         </div>
         
-        <div class="space-y-4 text-sm text-slate-600 leading-relaxed">
+        <div class="space-y-4 text-sm text-slate-600 leading-relaxed text-justify">
             <p>
-                Medika Portal merupakan platform berbasis web yang dikembangkan untuk memetakan kecenderungan indikasi awal masalah kesehatan pasien berdasarkan pengelompokan gejala yang dipilih secara mandiri.
+                Triase Mandiri merupakan platform berbasis web yang dikembangkan untuk memetakan kecenderungan indikasi awal masalah kesehatan pasien berdasarkan pengelompokan gejala yang dipilih secara mandiri.
             </p>
             <p>
                 Sistem ini menerapkan pendekatan komputasi menggunakan metode klasifikasi statistik <strong class="text-slate-900 font-semibold">Bernoulli Naive Bayes</strong>. Algoritma ini memproses data gejala sebagai variabel biner (ada atau tidaknya gejala) untuk menghitung bobot probabilitas bersyarat terhadap database kasus penyakit yang tersedia.
             </p>
             <p>
-                Hasil pengujian menyajikan estimasi akurat berupa urutan peringkat kasus yang paling relevan beserta kalkulasi persentase kecocokan, serta menyediakan opsi cetak dokumen rekam ringkasan formal.
+                Hasil pengujian menyajikan estimasi objektif berupa urutan peringkat kasus yang paling relevan beserta kalkulasi persentase kecocokan, serta menyediakan opsi cetak dokumen rekam ringkasan formal.
             </p>
+        </div>
+
+        <div class="mt-6 bg-teal-50/50 border border-teal-100 rounded-lg p-5">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-600 shrink-0 mt-0.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-sm font-bold text-slate-900 mb-2">Filosofi Penamaan "Triase"</h2>
+                    <div class="space-y-2.5 text-xs text-slate-600 leading-relaxed text-justify">
+                        <p>
+                            <strong class="text-slate-800">Triase (Triage)</strong> adalah prosedur medis universal yang digunakan di Instalasi Gawat Darurat (IGD) rumah sakit untuk memilah, menilai, dan memprioritaskan pasien berdasarkan tingkat keparahan klinis mereka.
+                        </p>
+                        <p>
+                            Dipadukan dengan kata <strong class="text-slate-800">Mandiri</strong>, aplikasi ini dibangun dengan landasan visi untuk mendigitalisasi proses pemilahan gejala (skrining awal) agar dapat dilakukan oleh masyarakat dari rumah. Sistem ini memodelkan kehati-hatian evaluasi triase ke dalam algoritma <i>Machine Learning</i> untuk memberikan panduan edukasi medis primer sebelum pasien berkonsultasi dengan dokter spesialis.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
         <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm/50">
             <div class="text-[10px] font-bold text-teal-600 uppercase tracking-widest mb-1.5">Metodologi</div>
-            <h3 class="font-bold text-sm text-slate-900 mb-1">
-                Klasifikasi Statistik
-            </h3>
-            <p class="text-xs text-slate-500 leading-relaxed">
-                Memanfaatkan teorema probabilitas Naive Bayes untuk penapisan kelompok keluhan fisik secara terukur.
-            </p>
+            <h3 class="font-bold text-sm text-slate-900 mb-1">Klasifikasi Statistik</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">Memanfaatkan teorema probabilitas Naive Bayes untuk penapisan kelompok keluhan fisik secara terukur.</p>
         </div>
 
         <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm/50">
             <div class="text-[10px] font-bold text-teal-600 uppercase tracking-widest mb-1.5">Output</div>
-            <h3 class="font-bold text-sm text-slate-900 mb-1">
-                Analisis Distribusi
-            </h3>
-            <p class="text-xs text-slate-500 leading-relaxed">
-                Menyajikan komparasi 3 besar (Top 3) estimasi indikasi medis berdasarkan nilai persentase tertinggi.
-            </p>
+            <h3 class="font-bold text-sm text-slate-900 mb-1">Analisis Distribusi</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">Menyajikan komparasi 3 besar (Top 3) estimasi indikasi medis berdasarkan nilai persentase tertinggi.</p>
         </div>
 
         <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm/50">
             <div class="text-[10px] font-bold text-teal-600 uppercase tracking-widest mb-1.5">Dokumentasi</div>
-            <h3 class="font-bold text-sm text-slate-900 mb-1">
-                Rekam Ringkasan
-            </h3>
-            <p class="text-xs text-slate-500 leading-relaxed">
-                Hasil evaluasi gejala dapat langsung diunduh ke dalam berkas PDF sebagai dokumen acuan konsultasi lanjutan.
-            </p>
+            <h3 class="font-bold text-sm text-slate-900 mb-1">Rekam Ringkasan</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">Hasil evaluasi gejala dapat langsung diunduh ke dalam berkas PDF sebagai dokumen acuan konsultasi lanjutan.</p>
         </div>
-
     </div>
 
     <div class="bg-white border border-slate-200 rounded-lg p-6 sm:p-8">
         <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 pb-2 mb-4">
             Spesifikasi Komputasi & Arsitektur
         </h2>
-        
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div class="bg-slate-50 border border-slate-200 rounded p-3 text-center text-xs font-semibold text-slate-700">
-                Django Framework
-            </div>
-            <div class="bg-slate-50 border border-slate-200 rounded p-3 text-center text-xs font-semibold text-slate-700">
-                Tailwind CSS
-            </div>
-            <div class="bg-slate-50 border border-slate-200 rounded p-3 text-center text-xs font-semibold text-slate-700">
-                Bernoulli Naive Bayes
-            </div>
-            <div class="bg-slate-50 border border-slate-200 rounded p-3 text-center text-xs font-semibold text-slate-700">
-                PDF Engine Generator
-            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded p-3 text-center text-xs font-semibold text-slate-700">Django Framework</div>
+            <div class="bg-slate-50 border border-slate-200 rounded p-3 text-center text-xs font-semibold text-slate-700">Tailwind CSS</div>
+            <div class="bg-slate-50 border border-slate-200 rounded p-3 text-center text-xs font-semibold text-slate-700">Bernoulli Naive Bayes</div>
+            <div class="bg-slate-50 border border-slate-200 rounded p-3 text-center text-xs font-semibold text-slate-700">PDF Engine Generator</div>
         </div>
     </div>
 
     <div class="bg-white border border-slate-200 rounded-lg p-6 sm:p-8">
-        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 pb-2 mb-5">
-            Personel Pengembang
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 pb-2 mb-6">
+            Tim Pengembang
         </h2>
         
-        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
-            <div class="w-16 h-16 rounded bg-slate-900 flex items-center justify-center text-white text-xl font-bold tracking-tight shrink-0 select-none">
-                NA
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
             
-            <div class="space-y-1">
-                <h3 class="text-base font-bold text-slate-900 leading-none">
-                    Nazril Abdillah
-                </h3>
-                <p class="text-xs font-medium text-slate-500">
-                    Laboratorium Sistem Pakar & Rekayasa Perangkat Lunak
-                </p>
-                <p class="text-xs text-slate-400">
-                    Program Studi Teknik Informatika &bull; Universitas Indonesia Mandiri
-                </p>
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
+                <div class="w-14 h-14 rounded bg-slate-900 flex items-center justify-center text-white text-lg font-bold tracking-tight shrink-0 select-none">
+                    NA
+                </div>
+                <div class="space-y-1">
+                    <h3 class="text-sm font-bold text-slate-900 leading-none">Nazril Abdillah</h3>
+                    <p class="text-[11px] font-bold text-teal-600 uppercase tracking-widest">Nim 5520224057</p>
+                    <p class="text-xs text-slate-500 leading-snug">
+                        Program Studi Informatika &bull; Fakultas Sains Dan Teknologi<br>Universitas Indonesia Mandiri
+                    </p>
+                </div>
             </div>
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
+                <div class="w-14 h-14 rounded bg-slate-900 flex items-center justify-center text-white text-lg font-bold tracking-tight shrink-0 select-none">
+                    IK
+                </div>
+                <div class="space-y-1">
+                    <h3 class="text-sm font-bold text-slate-900 leading-none">I Kadek Pebrianto Indrajaya</h3>
+                    <p class="text-[11px] font-bold text-teal-600 uppercase tracking-widest">Nim 5520224042</p>
+                    <p class="text-xs text-slate-500 leading-snug">
+                        Program Studi Informatika &bull; Fakultas Sains Dan Teknologi<br>Universitas Indonesia Mandiri
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
+                <div class="w-14 h-14 rounded bg-slate-900 flex items-center justify-center text-white text-lg font-bold tracking-tight shrink-0 select-none">
+                    LR
+                </div>
+                <div class="space-y-1">
+                    <h3 class="text-sm font-bold text-slate-900 leading-none">Laila Rohmah</h3>
+                    <p class="text-[11px] font-bold text-teal-600 uppercase tracking-widest">NIM 5520224066</p>
+                    <p class="text-xs text-slate-500 leading-snug">
+                        Program Studi Informatika &bull; Fakultas Sains Dan Teknologi<br>Universitas Indonesia Mandiri
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
+                <div class="w-14 h-14 rounded bg-slate-900 flex items-center justify-center text-white text-lg font-bold tracking-tight shrink-0 select-none">
+                    AF
+                </div>
+                <div class="space-y-1">
+                    <h3 class="text-sm font-bold text-slate-900 leading-none">Agdina Firma</h3>
+                    <p class="text-[11px] font-bold text-teal-600 uppercase tracking-widest">NIM 5520224059</p>
+                    <p class="text-xs text-slate-500 leading-snug">
+                        Program Studi Informatika &bull; Fakultas Sains Dan Teknologi<br>Universitas Indonesia Mandiri
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
+                <div class="w-14 h-14 rounded bg-slate-900 flex items-center justify-center text-white text-lg font-bold tracking-tight shrink-0 select-none">
+                    NM
+                </div>
+                <div class="space-y-1">
+                    <h3 class="text-sm font-bold text-slate-900 leading-none">Neneng Mudrikah</h3>
+                    <p class="text-[11px] font-bold text-teal-600 uppercase tracking-widest">NIM 5520224034</p>
+                    <p class="text-xs text-slate-500 leading-snug">
+                        Program Studi Informatika &bull; Fakultas Sains Dan Teknologi<br>Universitas Indonesia Mandiri
+                    </p>
+                </div>
+            </div>
+
         </div>
     </div>
 

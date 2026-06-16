@@ -1,206 +1,21 @@
 import joblib
 import pandas as pd
-
-from django.shortcuts import render
-from reportlab.pdfgen import canvas
-from django.http import HttpResponse
-model = joblib.load("disease_model.pkl")
-from django.http import HttpResponse
-from reportlab.lib import colors
-from reportlab.lib.pagesizes import A4
-from reportlab.platypus import (
-    SimpleDocTemplate,
-    Paragraph,
-    Spacer,
-    Table,
-    TableStyle
-)
-from reportlab.lib.styles import getSampleStyleSheet
 from datetime import datetime
 
+from django.http import HttpResponse
+from django.shortcuts import render
 
-def download_pdf(request):
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 
-    nama = request.GET.get("nama", "-")
-    nik = request.GET.get("nik", "-")
-    gender = request.GET.get("gender", "-")
-    usia = request.GET.get("usia", "-")
-    no_hp = request.GET.get("no_hp", "-")
-    alamat = request.GET.get("alamat", "-")
+# ==========================================
+# 1. LOAD MODEL ML & KONFIGURASI GLOBAL
+# ==========================================
+model = joblib.load("disease_model.pkl")
+FITUR = list(model.feature_names_in_)
 
-    hasil = request.GET.get("hasil", "-")
-
-    top1 = request.GET.get("top1", "-")
-    top2 = request.GET.get("top2", "-")
-    top3 = request.GET.get("top3", "-")
-
-    response = HttpResponse(
-        content_type="application/pdf"
-    )
-
-    response[
-        "Content-Disposition"
-    ] = 'attachment; filename="laporan_diagnosis.pdf"'
-
-    doc = SimpleDocTemplate(
-        response,
-        pagesize=A4
-    )
-
-    styles = getSampleStyleSheet()
-
-    elements = []
-
-    # Judul
-    elements.append(
-        Paragraph(
-            "LAPORAN HASIL DIAGNOSIS PENYAKIT",
-            styles["Title"]
-        )
-    )
-
-    elements.append(
-        Paragraph(
-            "Sistem Diagnosis Penyakit Berbasis Artificial Intelligence",
-            styles["Normal"]
-        )
-    )
-
-    elements.append(
-        Spacer(1, 20)
-    )
-
-    # Identitas Pasien
-    elements.append(
-        Paragraph(
-            "<b>IDENTITAS PASIEN</b>",
-            styles["Heading2"]
-        )
-    )
-
-    data_pasien = [
-        ["Nama", nama],
-        ["NIK", nik],
-        ["Jenis Kelamin", gender],
-        ["Usia", f"{usia} Tahun"],
-        ["No. HP", no_hp],
-        ["Alamat", alamat],
-    ]
-
-    tabel_pasien = Table(
-        data_pasien,
-        colWidths=[120, 320]
-    )
-
-    tabel_pasien.setStyle(
-        TableStyle([
-            ("GRID", (0,0), (-1,-1), 1, colors.black),
-            ("BACKGROUND", (0,0), (0,-1), colors.lightgrey),
-        ])
-    )
-
-    elements.append(tabel_pasien)
-
-    elements.append(
-        Spacer(1, 20)
-    )
-
-    # Hasil Diagnosis
-    elements.append(
-        Paragraph(
-            "<b>HASIL DIAGNOSIS</b>",
-            styles["Heading2"]
-        )
-    )
-
-    hasil_table = Table(
-        [
-            ["Penyakit Utama", hasil]
-        ],
-        colWidths=[150, 290]
-    )
-
-    hasil_table.setStyle(
-        TableStyle([
-            ("GRID", (0,0), (-1,-1), 1, colors.black),
-            ("BACKGROUND", (0,0), (0,0), colors.lightgrey),
-        ])
-    )
-
-    elements.append(hasil_table)
-
-    elements.append(
-        Spacer(1, 20)
-    )
-
-    # Top Prediksi
-    elements.append(
-        Paragraph(
-            "<b>TOP 3 KEMUNGKINAN PENYAKIT</b>",
-            styles["Heading2"]
-        )
-    )
-
-    prediksi_table = Table(
-        [
-            ["Peringkat", "Penyakit"],
-            ["1", top1],
-            ["2", top2],
-            ["3", top3],
-        ],
-        colWidths=[80, 360]
-    )
-
-    prediksi_table.setStyle(
-        TableStyle([
-            ("GRID", (0,0), (-1,-1), 1, colors.black),
-            ("BACKGROUND", (0,0), (-1,0), colors.lightblue),
-            ("FONTNAME", (0,0), (-1,0), "Helvetica-Bold")
-        ])
-    )
-
-    elements.append(prediksi_table)
-
-    elements.append(
-        Spacer(1, 30)
-    )
-
-    tanggal = datetime.now().strftime(
-        "%d-%m-%Y %H:%M"
-    )
-
-    elements.append(
-        Paragraph(
-            f"Tanggal Diagnosis: {tanggal}",
-            styles["Normal"]
-        )
-    )
-
-    elements.append(
-        Spacer(1, 40)
-    )
-
-    elements.append(
-        Paragraph(
-            "Hasil ini merupakan prediksi berdasarkan algoritma Bernoulli Naive Bayes dan tidak menggantikan diagnosis dokter.",
-            styles["Italic"]
-        )
-    )
-
-    elements.append(
-        Spacer(1, 50)
-    )
-
-    elements.append(
-        Paragraph(
-            "Sistem Diagnosis Penyakit AI",
-            styles["Normal"]
-        )
-    )
-
-    doc.build(elements)
-
-    return response
 GEJALA = {
     "itching": "Gatal-gatal pada kulit",
     "skin_rash": "Ruam pada kulit",
@@ -215,7 +30,7 @@ GEJALA = {
     "muscle_wasting": "Penyusutan massa otot",
     "vomiting": "Muntah-muntah",
     "burning_micturition": "Sensasi terbakar saat buang air kecil",
-    "spotting_ urination": "Bercak darah saat buang air kecil", # Format spasi asli CSV
+    "spotting_ urination": "Bercak darah saat buang air kecil",  
     "fatigue": "Kelelahan ekstrem / lesu",
     "weight_gain": "Kenaikan berat badan drastis",
     "anxiety": "Rasa gelisah / cemas berlebih",
@@ -292,7 +107,7 @@ GEJALA = {
     "weakness_of_one_body_side": "Kelemahan pada satu sisi tubuh",
     "loss_of_smell": "Kehilangan indra penciuman (anosmia)",
     "bladder_discomfort": "Rasa tidak nyaman di kandung kemih",
-    "foul_smell_of urine": "Urine berbau menyengat / tidak sedap", # Spasi asli CSV
+    "foul_smell_of urine": "Urine berbau menyengat / tidak sedap",  
     "continuous_feel_of_urine": "Sensasi ingin buang air kecil terus",
     "passage_of_gases": "Sering buang angin / kentut",
     "internal_itching": "Rasa gatal di bagian dalam tubuh",
@@ -304,7 +119,7 @@ GEJALA = {
     "red_spots_over_body": "Bintik-bintik merah di seluruh tubuh",
     "belly_pain": "Sakit perut bagian bawah",
     "abnormal_menstruation": "Siklus menstruasi tidak teratur",
-    "dischromic _patches": "Bercak kulit yang berubah warna", # Spasi asli CSV
+    "dischromic _patches": "Bercak kulit yang berubah warna",  
     "watering_from_eyes": "Mata terus berair",
     "increased_appetite": "Nafsu makan melonjak",
     "polyuria": "Volume buang air kecil meningkat (poliuria)",
@@ -319,7 +134,7 @@ GEJALA = {
     "stomach_bleeding": "Pendarahan pada lambung",
     "distention_of_abdomen": "Perut kembung / membesar",
     "history_of_alcohol_consumption": "Riwayat rutin mengonsumsi alkohol",
-    "fluid_overload.1": "Kelebihan cairan sekunder", # Format pandas duplikat header (.1)
+    "fluid_overload.1": "Kelebihan cairan sekunder",  
     "blood_in_sputum": "Batuk berdarah / ada darah di dahak",
     "prominent_veins_on_calf": "Urat menonjol jelas di betis",
     "palpitations": "Jantung berdebar-debar keras",
@@ -344,10 +159,10 @@ PENYAKIT = {
     "Drug Reaction": "Reaksi Efek Samping Obat",
     "Peptic ulcer diseae": "Tukak Lambung",
     "AIDS": "AIDS / HIV",
-    "Diabetes ": "Diabetes Melitus",  # Ada spasi di akhir string asli dataset
+    "Diabetes ": "Diabetes Melitus",  
     "Gastroenteritis": "Gastroenteritis (Flu Perut)",
     "Bronchial Asthma": "Asma Bronkial",
-    "Hypertension ": "Hipertensi (Tekanan Darah Tinggi)",  # Ada spasi di akhir string asli dataset
+    "Hypertension ": "Hipertensi (Tekanan Darah Tinggi)",  
     "Migraine": "Migrain",
     "Cervical spondylosis": "Spondilosi Servikal",
     "Paralysis (brain hemorrhage)": "Paralisis (Stroke Pendarahan Otak)",
@@ -380,13 +195,24 @@ PENYAKIT = {
     "Impetigo": "Impetigo"
 }
 
-FITUR = list(model.feature_names_in_)
 
+# ==========================================
+# 2. VIEW PAGES (HOME & ABOUT)
+# ==========================================
+def home(request):
+    return render(request, "home.html")
+
+
+def about(request):
+    return render(request, "about.html")
+
+
+# ==========================================
+# 3. VIEW PROSES DIAGNOSIS (POST & GET)
+# ==========================================
 def diagnosis(request):
-
     hasil = None
     top3 = None
-
     chart_labels = []
     chart_values = []
 
@@ -396,13 +222,10 @@ def diagnosis(request):
     usia = ""
     no_hp = ""
     alamat = ""
+    gejala_pasien = ""
 
     if request.method == "POST":
-
-        # ==========================
-        # DATA PASIEN
-        # ==========================
-
+        # Data Pasien
         nama = request.POST.get("nama")
         nik = request.POST.get("nik")
         gender = request.POST.get("gender")
@@ -410,102 +233,175 @@ def diagnosis(request):
         no_hp = request.POST.get("no_hp")
         alamat = request.POST.get("alamat")
 
-        # ==========================
-        # GEJALA
-        # ==========================
+        # Proses Gejala Terpilih
+        gejala_dipilih = request.POST.getlist("gejala")
+        
+        # Penggabungan multi-gejala menjadi satu string teks
+        gejala_terjemahan = [GEJALA.get(g, g) for g in gejala_dipilih]
+        gejala_pasien = ", ".join(gejala_terjemahan) if gejala_terjemahan else "-"
 
-        gejala_dipilih = request.POST.getlist(
-            "gejala"
-        )
-
-        data = {
-            fitur: 0
-            for fitur in FITUR
-        }
-
+        # Buat struktur dataframe untuk model
+        data = {fitur: 0 for fitur in FITUR}
         for gejala in gejala_dipilih:
             if gejala in data:
                 data[gejala] = 1
 
         df = pd.DataFrame([data])
 
-        # ==========================
-        # PREDIKSI
-        # ==========================
-
+        # Eksekusi Prediksi ML
         prediksi = model.predict(df)[0]
-
         probabilitas = model.predict_proba(df)[0]
 
-        hasil = PENYAKIT.get(
-            prediksi,
-            prediksi
-        )
+        hasil = PENYAKIT.get(prediksi, prediksi)
 
-        hasil_list = list(
-            zip(
-                model.classes_,
-                probabilitas
-            )
-        )
-
-        hasil_list.sort(
-            key=lambda x: x[1],
-            reverse=True
-        )
+        # Kelola Hasil Probabilitas Top 3
+        hasil_list = list(zip(model.classes_, probabilitas))
+        hasil_list.sort(key=lambda x: x[1], reverse=True)
 
         top3 = []
-
         for penyakit, nilai in hasil_list[:3]:
-
-            nama_penyakit = PENYAKIT.get(
-                penyakit,
-                penyakit
-            )
-
-            persen = round(
-                nilai * 100,
-                2
-            )
-
-            top3.append(
-                (
-                    nama_penyakit,
-                    persen
-                )
-            )
-
-            chart_labels.append(
-                nama_penyakit
-            )
-
-            chart_values.append(
-                persen
-            )
+            nama_penyakit = PENYAKIT.get(penyakit, penyakit)
+            persen = round(nilai * 100, 2)
+            
+            top3.append((nama_penyakit, persen))
+            chart_labels.append(nama_penyakit)
+            chart_values.append(persen)
 
     return render(
         request,
         "diagnosis.html",
         {
             "gejala": GEJALA,
-
             "hasil": hasil,
             "top3": top3,
-
             "chart_labels": chart_labels,
             "chart_values": chart_values,
-
-            # DATA PASIEN
             "nama": nama,
             "nik": nik,
             "gender": gender,
             "usia": usia,
             "no_hp": no_hp,
             "alamat": alamat,
+            "gejala_pasien": gejala_pasien,
         }
     )
-def home(request):
-    return render(request, "home.html")
 
-def about(request):
-    return render(request, "about.html")
+
+# ==========================================
+# 4. ENGINE GENERATOR UNDUH LAPORAN PDF
+# ==========================================
+def download_pdf(request):
+    # Mengambil parameter data pasien & rekam gejala dari URL GET
+    nama = request.GET.get("nama", "-")
+    nik = request.GET.get("nik", "-")
+    gender = request.GET.get("gender", "-")
+    usia = request.GET.get("usia", "-")
+    no_hp = request.GET.get("no_hp", "-")
+    alamat = request.GET.get("alamat", "-")
+    gejala = request.GET.get("gejala", "-")
+
+    hasil = request.GET.get("hasil", "-")
+    top1 = request.GET.get("top1", "-")
+    top2 = request.GET.get("top2", "-")
+    top3 = request.GET.get("top3", "-")
+
+    # Setup HttpResponse untuk Dokumen PDF
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = 'attachment; filename="laporan_diagnosis.pdf"'
+
+    doc = SimpleDocTemplate(response, pagesize=A4)
+    styles = getSampleStyleSheet()
+    elements = []
+
+    # Header Dokumen
+  # Header Dokumen
+    elements.append(Paragraph("LAPORAN HASIL SKRINING GEJALA", styles["Title"]))
+    elements.append(Paragraph("Sistem Triase Mandiri Berbasis Probabilitas Statistika", styles["Normal"]))
+    elements.append(Spacer(1, 20))
+
+    # --- TABEL 1: IDENTITAS PASIEN ---
+    elements.append(Paragraph("<b>IDENTITAS PASIEN</b>", styles["Heading2"]))
+    
+    data_pasien = [
+        ["Nama", nama],
+        ["NIK", nik],
+        ["Jenis Kelamin", gender],
+        ["Usia", f"{usia} Tahun"],
+        ["No. HP", no_hp],
+        ["Alamat", alamat],
+    ]
+
+    tabel_pasien = Table(data_pasien, colWidths=[120, 320])
+    tabel_pasien.setStyle(TableStyle([
+        ("GRID", (0, 0), (-1, -1), 1, colors.black),
+        ("BACKGROUND", (0, 0), (0, -1), colors.lightgrey),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("TOPPADDING", (0, 0), (-1, -1), 6),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+    ]))
+    elements.append(tabel_pasien)
+    elements.append(Spacer(1, 20))
+
+    # --- TABEL 2: GEJALA PASIEN (BARU) ---
+    elements.append(Paragraph("<b>GEJALA YANG DIALAMI</b>", styles["Heading2"]))
+
+    # Tetap gunakan paragraph agar teks wrap kebawah jika panjang
+    gejala_paragraph = Paragraph(gejala, styles["Normal"])
+    
+    data_gejala = [
+        ["Daftar Gejala", gejala_paragraph]
+    ]
+    
+    # Kolom disamakan ukurannya dengan tabel pasien agar sejajar presisi
+    tabel_gejala = Table(data_gejala, colWidths=[120, 320])
+    tabel_gejala.setStyle(TableStyle([
+        ("GRID", (0, 0), (-1, -1), 1, colors.black),
+        ("BACKGROUND", (0, 0), (0, -1), colors.lightgrey),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"), # Dibuat rata atas agar rapi
+        ("TOPPADDING", (0, 0), (-1, -1), 8),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+    ]))
+    elements.append(tabel_gejala)
+    elements.append(Spacer(1, 20))
+
+    # --- TABEL 3: HASIL DIAGNOSIS ---
+    elements.append(Paragraph("<b>HASIL DIAGNOSIS</b>", styles["Heading2"]))
+    hasil_table = Table([["Penyakit Utama", hasil]], colWidths=[150, 290])
+    hasil_table.setStyle(TableStyle([
+        ("GRID", (0, 0), (-1, -1), 1, colors.black),
+        ("BACKGROUND", (0, 0), (0, 0), colors.lightgrey),
+        ("TOPPADDING", (0, 0), (-1, -1), 6),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+    ]))
+    elements.append(hasil_table)
+    elements.append(Spacer(1, 20))
+
+    # --- TABEL 4: PREDIKSI TOP 3 ---
+    elements.append(Paragraph("<b>TOP 3 KEMUNGKINAN PENYAKIT</b>", styles["Heading2"]))
+    prediksi_table = Table([
+        ["Peringkat", "Penyakit"],
+        ["1", top1],
+        ["2", top2],
+        ["3", top3],
+    ], colWidths=[80, 360])
+    prediksi_table.setStyle(TableStyle([
+        ("GRID", (0, 0), (-1, -1), 1, colors.black),
+        ("BACKGROUND", (0, 0), (-1, 0), colors.lightblue),
+        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+        ("TOPPADDING", (0, 0), (-1, -1), 6),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+    ]))
+    elements.append(prediksi_table)
+    elements.append(Spacer(1, 30))
+
+    # --- FOOTER ---
+    # --- FOOTER ---
+    tanggal = datetime.now().strftime("%d-%m-%Y %H:%M")
+    elements.append(Paragraph(f"Tanggal Skrining: {tanggal}", styles["Normal"]))
+    elements.append(Spacer(1, 40))
+    elements.append(Paragraph("Hasil ini merupakan prediksi awal untuk keperluan triase mandiri berdasarkan algoritma Bernoulli Naive Bayes, bukan pengganti diagnosis resmi dokter.", styles["Italic"]))
+    elements.append(Spacer(1, 50))
+    elements.append(Paragraph("Platform Triase Mandiri - Informatika | Fakultas sains Dan Teknologi | Universitas Indonesia Mandiri", styles["Normal"]))
+
+    doc.build(elements)
+    return response

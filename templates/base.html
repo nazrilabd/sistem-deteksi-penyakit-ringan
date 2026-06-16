@@ -20,17 +20,17 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 
-                <div class="flex items-center">
-                    <a href="{% url 'home' %}" class="flex items-center space-x-3 group">
-                        <div class="w-8 h-8 rounded bg-slate-900 flex items-center justify-center text-white font-bold text-sm tracking-tight">
-                            M
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-sm font-bold text-slate-900 tracking-tight leading-none uppercase">Medika Portal</span>
-                            <span class="text-[10px] font-medium text-slate-400 tracking-wider mt-0.5">Sistem Klasifikasi Gejala</span>
-                        </div>
-                    </a>
-                </div>
+   <div class="flex items-center">
+    <a href="{% url 'home' %}" class="flex items-center space-x-3 group">
+        <div class="w-8 h-8 rounded bg-slate-900 flex items-center justify-center text-white font-bold text-sm tracking-tight">
+            T
+        </div>
+        <div class="flex flex-col">
+            <span class="text-sm font-bold text-slate-900 tracking-tight leading-none uppercase">Triase Mandiri</span>
+            <span class="text-[10px] font-medium text-slate-400 tracking-wider mt-0.5">Sistem Skrining Gejala</span>
+        </div>
+    </a>
+</div>
 
                 <div class="hidden sm:flex sm:items-center sm:space-x-8">
                     <a href="{% url 'home' %}" 
@@ -45,7 +45,7 @@
                     
                     <a href="{% url 'about' %}" 
                        class="border-b-2 px-1 pt-1 text-sm transition-colors {% if request.resolver_match.url_name == 'about' %}border-slate-900 font-semibold text-slate-900{% else %}border-transparent font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700{% endif %}">
-                        Metodologi
+                        Tentang
                     </a>
                 </div>
 
@@ -71,7 +71,7 @@
             </a>
             <a href="{% url 'about' %}" 
                class="block px-3 py-2 rounded-md text-base font-medium {% if request.resolver_match.url_name == 'about' %}text-slate-900 bg-slate-50 font-semibold{% else %}text-slate-600 hover:bg-slate-50 hover:text-slate-900{% endif %}">
-                Metodologi
+                Tentang
             </a>
         </div>
     </nav>
@@ -97,16 +97,16 @@
                 <div class="md:col-span-4 space-y-2.5 md:text-right">
                     <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Penyelenggara</h4>
                     <p class="text-xs text-slate-500 leading-relaxed">
-                        Laboratorium Sistem Pakar & Rekayasa Perangkat Lunak<br>
-                        Fakultas Ilmu Komputer &bull; Universitas Indonesia Mandiri
+                         Program Study Informatika<br>
+                        Fakultas Sains Dan Teknologi <br> Universitas Indonesia Mandiri
                     </p>
                 </div>
 
             </div>
             
             <div class="pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-400 gap-2">
-                <p>&copy; 2026 Medika Portal. Seluruh hak cipta dilindungi undang-undang.</p>
-                <p class="font-mono text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Build: v2.4.0-Stable</p>
+                <p>&copy; 2026 Triase Mandiri. Seluruh hak cipta dilindungi undang-undang.</p>
+                <p class="font-mono text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Build: v1.0-Beta</p>
             </div>
         </div>
     </footer>

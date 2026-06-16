@@ -12,7 +12,7 @@ Pemeriksaan Gejala Mandiri
         
         <div class="border-b border-slate-100 pb-5 mb-6 text-center sm:text-left">
             <h1 class="text-xl font-bold text-slate-950 tracking-tight">
-                Formulir Skrining Gejala Mandiri
+                Formulir Pemeriksaan Gejala Mandiri
             </h1>
             <p class="text-xs text-slate-500 mt-1">
                 Lengkapi data administrasi dan pilih indikasi klinis yang Anda rasakan untuk memulai analisis statistik.
@@ -116,7 +116,7 @@ Pemeriksaan Gejala Mandiri
             <div class="pt-4 text-center sm:text-left border-t border-slate-100">
                 <button type="submit" 
                         class="w-full sm:w-auto bg-slate-900 hover:bg-teal-700 text-white px-6 py-3 rounded text-xs font-bold uppercase tracking-wider transition-colors shadow-sm">
-                    Proses Klasifikasi Data
+                    Submit Data
                 </button>
             </div>
         </form>
@@ -165,10 +165,10 @@ Pemeriksaan Gejala Mandiri
         </div>
 
         <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center gap-3">
-            <a href="{% url 'download_pdf' %}?nama={{ nama }}&nik={{ nik }}&gender={{ gender }}&usia={{ usia }}&no_hp={{ no_hp }}&alamat={{ alamat }}&hasil={{ hasil }}&top1={{ top3.0.0 }} ({{ top3.0.1 }}%)&top2={{ top3.1.0 }} ({{ top3.1.1 }}%)&top3={{ top3.2.0 }} ({{ top3.2.1 }}%)"
-               class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded transition-colors text-center shadow-sm">
-                Unduh Rekam Ringkasan (PDF)
-            </a>
+    <a href="{% url 'download_pdf' %}?nama={{ nama }}&nik={{ nik }}&gender={{ gender }}&usia={{ usia }}&no_hp={{ no_hp }}&alamat={{ alamat }}&hasil={{ hasil }}&top1={{ top3.0.0 }} ({{ top3.0.1 }}%)&top2={{ top3.1.0 }} ({{ top3.1.1 }}%)&top3={{ top3.2.0 }} ({{ top3.2.1 }}%)&gejala={{ gejala_pasien|urlencode }}"
+   class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded transition-colors text-center shadow-sm">
+    Unduh Rekam Ringkasan (PDF)
+</a>
             
             <a href="{% url 'diagnosis' %}"
                class="w-full sm:w-auto border border-slate-300 hover:border-slate-400 text-slate-600 hover:text-slate-900 px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded transition-colors text-center">
